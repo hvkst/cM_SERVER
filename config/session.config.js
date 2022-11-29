@@ -4,6 +4,8 @@ const session = require('express-session');
 
 const MongoStore = require('connect-mongo');
 
+// const sessionStore = new MongoStore({ mongooseConnection: connection, collection: 'sessions' });
+
 module.exports = (app) => {
   app.set('trust proxy', 1);
 

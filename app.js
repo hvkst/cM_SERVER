@@ -8,10 +8,12 @@ const express = require('express');
 
 const app = express();
 
-require('./config')(app);
-
 // use session here:
 require('./config/session.config')(app);
+
+require('./config')(app);
+
+require('./config/passport.config');
 
 // 👇 Start handling routes here
 const indexRoutes = require('./routes/index.routes');

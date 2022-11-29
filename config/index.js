@@ -10,6 +10,8 @@ const cors = require('cors');
 
 // const path = require('path');
 
+const passport = require('passport');
+
 const CLIENT_ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
 
 // Middleware configuration
@@ -20,6 +22,9 @@ module.exports = (app) => {
   // app.use(express.static(path.join(__dirname, 'client/build')));
 
   app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
+
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   // In development environment the app logs
   app.use(logger('dev'));
