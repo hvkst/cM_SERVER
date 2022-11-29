@@ -3,8 +3,8 @@ const passport = require('passport');
 const genPassword = require('../lib/passwordUtils').genPassword;
 const User = require('../models/User.model');
 
-const isAuth = require('./middleware/route-guard').isAuth;
-const isAdmin = require('./middleware/route-guard').isAdmin;
+// const isAuth = require('./middleware/route-guard').isAuth;
+// const isAdmin = require('./middleware/route-guard').isAdmin;
 
 const router = express.Router();
 
@@ -20,18 +20,18 @@ router.post('/signup', async (req, res, next) => {
     });
 
     const user = await newUser.save().then((user) => {
-      console.log(user);
+      console.log('user:', user);
     });
     // req.session.currentUser = { name: user.name };
 
-    return res.json({ message: 'Successfully signed up', user });
+    return res.json({ message: 'Successfully signed up' });
   } catch (error) {
     console.log('There was an error', error);
     return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
   }
 });
 
-router.post('/login', passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/backendadmin' }));
+router.post('/login', passport.authenticate('local', { failureRedirect: '/login' }));
 
 // router.post('/login', async (req, res) => {
 //   try {
@@ -62,16 +62,13 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/login'
 // });
 
 // Visiting this route logs the user out
-router.get('/logout', (req, res, next) => {
-  req.logout();
-  res.redirect('/');
+router.post('/logout', function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.json({ message: 'Successfully logged out!' });
+  });
 });
-
-// router.post('/logout', (req, res, next) => {
-//   req.session.destroy((err) => {
-//     if (err) return next(err);
-//     res.json({ message: 'Successfully logged out!' });
-//   });
-// });
 
 module.exports = router;

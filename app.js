@@ -16,11 +16,11 @@ require('./config')(app);
 require('./config/passport.config');
 
 // 👇 Start handling routes here
-const indexRoutes = require('./routes/index.routes');
-app.use('/', indexRoutes);
-
 const authRoutes = require('./routes/auth.routes');
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
+
+// const authRoutes = require('./routes/auth.routes');
+// app.use('/auth', authRoutes);
 
 const apiRoutes = require('./routes/api.routes');
 app.use('/api', apiRoutes);

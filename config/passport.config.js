@@ -8,9 +8,10 @@ const validPassword = require('../lib/passwordUtils').validPassword;
 const customFields = {
   usernameField: 'username',
   passwordField: 'password',
+  passReqToCallback: true, // allows us to access req in the call back
 };
 
-const verifyCallback = (username, password, done) => {
+const verifyCallback = (req, username, password, done) => {
   User.findOne({ username: username })
     .then((user) => {
       if (!user) {
@@ -20,7 +21,13 @@ const verifyCallback = (username, password, done) => {
       const isValid = validPassword(password, user.password);
 
       if (isValid) {
-        return done(null, user);
+        return done(
+          null,
+          user
+          //   {
+          //   name: user.username,
+          // }
+        );
       } else {
         return done(null, false);
       }

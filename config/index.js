@@ -26,6 +26,12 @@ module.exports = (app) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  app.use((req, res, next) => {
+    console.log(req.session);
+    console.log(req.user);
+    next();
+  });
+
   // In development environment the app logs
   app.use(logger('dev'));
 
