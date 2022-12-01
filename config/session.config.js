@@ -3,7 +3,6 @@
 const session = require('express-session');
 
 const MongoStore = require('connect-mongo');
-const passport = require('passport');
 
 // const sessionStore = new MongoStore({ mongooseConnection: connection, collection: 'sessions' });
 
@@ -26,5 +25,4 @@ module.exports = (app) => {
       }),
     })
   );
-  app.use(passport.authenticate('session')); // Does this have to be here?
 };

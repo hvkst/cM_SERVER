@@ -4,9 +4,6 @@ const validPassword = require('../lib/passwordUtils').validPassword;
 
 const User = require('../models/User.model');
 
-// const isAuth = require('./middleware/route-guard').isAuth;
-// const isAdmin = require('./middleware/route-guard').isAdmin;
-
 const router = express.Router();
 
 // POST /auth/signup  - Creates a new user in the database
