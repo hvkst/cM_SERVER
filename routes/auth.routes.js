@@ -19,7 +19,7 @@ router.post('/signup', async (req, res, next) => {
 
     await newUser.save().then((user) => {
       console.log('user:', user);
-      req.session.currentUser = { name: user.username };
+      req.session.currentUser = { name: user.username, isAdmin: user.admin };
     });
 
     console.log(req.session.currentUser);
@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
 
     console.log('Everything fine...');
 
-    const user = { username: userFromDb.username };
+    const user = { username: userFromDb.username, isAdmin: userFromDb.admin };
     req.session.currentUser = user;
     console.log(req.session.currentUser);
 
