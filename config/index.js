@@ -2,6 +2,8 @@
 
 const express = require('express');
 
+const expressSanitizer = require('express-sanitizer');
+
 const logger = require('morgan');
 
 const cookieParser = require('cookie-parser');
@@ -9,8 +11,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 // const path = require('path');
-
-const passport = require('passport');
 
 const CLIENT_ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
 
@@ -23,20 +23,18 @@ module.exports = (app) => {
 
   app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
 
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  app.use((req, res, next) => {
-    console.log(req.session);
-    console.log(req.user);
-    next();
-  });
-
   // In development environment the app logs
   app.use(logger('dev'));
 
   // To have access to `body` property in the request
   app.use(express.json());
+  app.use(expressSanitizer());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
+
+  app.use((req, res, next) => {
+    // console.log(req.session);
+    // console.log(req.user);
+    next();
+  });
 };
