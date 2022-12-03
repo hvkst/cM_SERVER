@@ -7,7 +7,7 @@ const Project = require('../models/Project/Project.model');
 
 router.get('/user', async (req, res, next) => {
   try {
-    const allUsers = await User.find({});
+    const allUsers = await User.find({}, { password: 0 }).populate('project');
 
     return res.json({ message: 'Got all users', allUsers });
   } catch (error) {

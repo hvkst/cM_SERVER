@@ -9,6 +9,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, 'Password is required.'],
+    // select: false,
   },
   admin: { type: Boolean, default: 'false' },
   project: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
