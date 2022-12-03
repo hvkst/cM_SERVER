@@ -3,6 +3,20 @@ const genPassword = require('../lib/passwordUtils').genPassword;
 const User = require('../models/User.model');
 const Project = require('../models/Project/Project.model');
 
+// GET route to get all users
+
+router.get('/user', async (req, res, next) => {
+  try {
+    const allUsers = await User.find({});
+
+    return res.json({ message: 'Got all users', allUsers });
+  } catch (error) {
+    console.log('There was an error', error);
+    return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
+  }
+});
+
+// POST route to create new users
 router.post('/user/new', async (req, res, next) => {
   const { password, username, project, duedate } = req.body;
 
