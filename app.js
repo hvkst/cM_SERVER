@@ -20,6 +20,9 @@ app.use('/', indexRoutes);
 const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
 
+const adminRoutes = require('./routes/admin.routes');
+app.use('/admin', adminRoutes);
+
 const apiRoutes = require('./routes/api.routes');
 app.use('/api', apiRoutes);
 
