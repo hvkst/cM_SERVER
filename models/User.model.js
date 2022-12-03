@@ -10,7 +10,8 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'Password is required.'],
   },
-  admin: Boolean, // User should not even have that in the end
+  admin: { type: Boolean, default: 'false' },
+  project: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
 });
 
 const User = model('User', userSchema);

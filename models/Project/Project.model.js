@@ -1,23 +1,20 @@
 const { Schema, model } = require('mongoose');
 
 const projectSchema = new Schema({
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
   title: {
     type: String,
     required: [true, 'Title is required.'],
   },
   createdAt: {
-    type: Date, // ?
+    type: Date,
+    default: Date.now(),
   },
   dueDate: {
-    type: Date, // ?
+    type: String, // ?
   },
-  toDoList: {
-    type: [], // Probably ref
-  },
-  sections: {
-    type: [],
-  },
-  // some sort of comments
+  toDoList: [{ type: Schema.Types.ObjectId, ref: 'ToDoList' }],
+  sections: [{ type: Schema.Types.ObjectId, ref: 'Section' }],
 });
 
 const User = model('Project', projectSchema);
