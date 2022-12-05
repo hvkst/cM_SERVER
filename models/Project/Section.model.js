@@ -8,6 +8,6 @@ const sectionSchema = new Schema({
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
-const User = model('Section', sectionSchema);
+const Section = model('Section', sectionSchema);
 
-module.exports = User;
+module.exports = Section;

@@ -17,6 +17,6 @@ const projectSchema = new Schema({
   sections: [{ type: Schema.Types.ObjectId, ref: 'Section' }],
 });
 
-const User = model('Project', projectSchema);
+const Project = model('Project', projectSchema);
 
-module.exports = User;
+module.exports = Project;

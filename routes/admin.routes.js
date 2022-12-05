@@ -2,6 +2,7 @@ const router = require('express').Router();
 const genPassword = require('../lib/passwordUtils').genPassword;
 const User = require('../models/User.model');
 const Project = require('../models/Project/Project.model');
+const Section = require('../models/Project/Section.model');
 
 // GET route to get all users
 
@@ -48,12 +49,41 @@ router.post('/user/new', async (req, res, next) => {
 // GET full single user
 router.get('/user/:userId/', async (req, res, next) => {
   try {
-    const user = await User.find({ _id: req.params.userId }).populate('project');
+    const user = await User.find({ _id: req.params.userId }).populate([
+      {
+        path: 'project',
+        model: 'Project',
+        populate: {
+          path: 'sections',
+          model: 'Section',
+        },
+      },
+    ]);
 
     return res.json({ message: 'Got full user data', user });
   } catch (error) {
     console.log('There was an error', error);
     return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
+  }
+});
+
+// Better to change everything in single chunks...
+router.post('/addsection/:projectId/', async (req, res, next) => {
+  try {
+    const { section } = req.body;
+
+    const newSection = new Section({
+      title: section,
+    });
+
+    const savedSection = await newSection.save();
+
+    const project = await Project.findOneAndUpdate({ _id: req.params.projectId }, { $push: { sections: savedSection } }, { new: true });
+
+    return res.json({ message: 'added section', project });
+  } catch (error) {
+    console.log('There was an error', error);
+    return res.status(500).json({ error: 'There was an error in the editing: ' + error.message });
   }
 });
 
