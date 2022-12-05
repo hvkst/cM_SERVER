@@ -7,7 +7,7 @@ const Project = require('../models/Project/Project.model');
 
 router.get('/user', async (req, res, next) => {
   try {
-    const allUsers = await User.find({}, { password: 0 }).populate('project');
+    const allUsers = await User.find({ admin: false }, { password: 0 }).populate('project');
 
     return res.json({ message: 'Got all users', allUsers });
   } catch (error) {
@@ -39,6 +39,18 @@ router.post('/user/new', async (req, res, next) => {
     console.log('new user saved', savedUser);
 
     return res.json({ message: 'Successfully created user' });
+  } catch (error) {
+    console.log('There was an error', error);
+    return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
+  }
+});
+
+// GET full single user
+router.get('/user/:userId/', async (req, res, next) => {
+  try {
+    const user = await User.find({ _id: req.params.userId }).populate('project');
+
+    return res.json({ message: 'Got full user data', user });
   } catch (error) {
     console.log('There was an error', error);
     return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
