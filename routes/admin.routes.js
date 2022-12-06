@@ -36,10 +36,11 @@ router.post('/user/new', async (req, res, next) => {
     });
 
     const savedUser = await newUser.save();
-
     console.log('new user saved', savedUser);
 
-    return res.json({ message: 'Successfully created user' });
+    const allUsers = await User.find({ admin: false }, { password: 0 }).populate('project');
+
+    return res.json({ message: 'Successfully created user', allUsers });
   } catch (error) {
     console.log('There was an error', error);
     return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
@@ -78,7 +79,9 @@ router.post('/addsection/:projectId/', async (req, res, next) => {
 
     const savedSection = await newSection.save();
 
-    const project = await Project.findOneAndUpdate({ _id: req.params.projectId }, { $push: { sections: savedSection } }, { new: true });
+    const project = await Project.findOneAndUpdate({ _id: req.params.projectId }, { $push: { sections: savedSection } }, { new: true }).populate(
+      'sections'
+    );
 
     return res.json({ message: 'added section', project });
   } catch (error) {
