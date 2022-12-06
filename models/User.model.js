@@ -12,7 +12,7 @@ const userSchema = new Schema({
     // select: false,
   },
   admin: { type: Boolean, default: 'false' },
-  project: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+  projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
 });
 
 const User = model('User', userSchema);
