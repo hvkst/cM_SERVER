@@ -34,6 +34,8 @@ router.post('/user/new', async (req, res, next) => {
       dueDate: duedate,
     });
     newProject.sections.push(savedSection);
+    // Add project ref to section
+    // newSection.project = newProject._id;
     const savedProject = await newProject.save();
 
     // Create a user with that project
@@ -42,6 +44,8 @@ router.post('/user/new', async (req, res, next) => {
       password: await genPassword(password),
     });
     newUser.projects.push(savedProject);
+    // Add user ref to project
+    // project.user = user._id;
 
     // Save that user
     const savedUser = await newUser.save();
@@ -62,29 +66,40 @@ router.post('/user/remove', async (req, res, next) => {
   const { userId } = req.body;
 
   try {
-    const userToDelete = await User.findById(userId);
-    const userToDeleteWithProjects = await User.findById(userId).populate('projects');
+    const userToDelete = await User.find({ _id: userId }).populate('projects');
 
-    // Delete all sections in all projects of that user
-    userToDeleteWithProjects.projects.forEach((project) => {
+    // const sectionsToDelete = userToDelete[0].projects[0].sections; // WORKED!
+
+    const sectionsToDelete = [];
+    const projectsToDelete = [];
+    userToDelete[0].projects.forEach((project) => {
+      projectsToDelete.push(project._id);
+
       project.sections.forEach((section) => {
-        Section.findByIdAndDelete(section._id);
+        sectionsToDelete.push(section._id);
       });
     });
 
-    // Delete all projects of that user
-    userToDelete.projects.forEach((project) => {
-      Project.findByIdAndDelete(project._id);
+    await Section.deleteMany({
+      _id: {
+        $in: sectionsToDelete,
+      },
     });
 
-    await User.findByIdAndDelete(userId);
+    await Project.deleteMany({
+      _id: {
+        $in: projectsToDelete,
+      },
+    });
+
+    await User.deleteOne({ _id: userId });
 
     const allUsers = await User.find({ admin: false }, { password: 0 }).populate('projects');
 
     return res.json({ message: 'Successfully deleted user', allUsers });
   } catch (error) {
     console.log('There was an error', error);
-    return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
+    return res.status(500).json({ error: 'There was an error in the delete: ' + error.message });
   }
 });
 
