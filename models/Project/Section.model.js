@@ -6,6 +6,9 @@ const sectionSchema = new Schema({
     type: String,
     required: [true, 'Title is required.'],
   },
+  description: {
+    type: String,
+  },
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
