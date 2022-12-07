@@ -134,26 +134,6 @@ router.post('/user/section/add', async (req, res, next) => {
     return res.status(500).json({ error: 'There was an error in adding a section: ' + error.message });
   }
 });
-// router.post('/addsection/:projectId/', async (req, res, next) => {
-//   try {
-//     const { section } = req.body;
-
-//     const newSection = new Section({
-//       title: section,
-//     });
-
-//     const savedSection = await newSection.save();
-
-//     const project = await Project.findOneAndUpdate({ _id: req.params.projectId }, { $push: { sections: savedSection } }, { new: true }).populate(
-//       'sections'
-//     );
-
-//     return res.json({ message: 'added section', project });
-//   } catch (error) {
-//     console.log('There was an error', error);
-//     return res.status(500).json({ error: 'There was an error in adding a section: ' + error.message });
-//   }
-// });
 
 // DELETE route to remove section
 router.delete('/user/section/remove', async (req, res, next) => {
