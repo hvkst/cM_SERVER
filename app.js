@@ -6,6 +6,8 @@ require('./db');
 
 const express = require('express');
 
+const { isLoggedIn } = require('./middleware/route-guard.js');
+
 const app = express();
 
 // use session here:
@@ -21,7 +23,7 @@ const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
 
 const adminRoutes = require('./routes/admin.routes');
-app.use('/admin', adminRoutes);
+app.use('/admin', isLoggedIn, adminRoutes);
 
 const apiRoutes = require('./routes/api.routes');
 app.use('/api', apiRoutes);

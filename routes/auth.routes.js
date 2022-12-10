@@ -2,12 +2,15 @@ const express = require('express');
 const genPassword = require('../lib/passwordUtils').genPassword;
 const validPassword = require('../lib/passwordUtils').validPassword;
 
+const { isLoggedOut } = require('../middleware/route-guard.js');
+
 const User = require('../models/User.model');
 
 const router = express.Router();
 
 // POST /auth/signup  - Creates a new user in the database
 router.post('/signup', async (req, res, next) => {
+  //isLoggedOut, ?
   const { password, username } = req.body;
 
   try {
@@ -32,6 +35,7 @@ router.post('/signup', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res) => {
+  //  isLoggedOut, ?
   try {
     const userFromDb = await User.findOne({
       username: req.body.username,
@@ -43,7 +47,7 @@ router.post('/login', async (req, res) => {
       throw new Error('Login failed');
     }
 
-    console.log('Everything fine...');
+    console.log('Everything fine... on login');
 
     const user = { username: userFromDb.username, isAdmin: userFromDb.admin };
     req.session.currentUser = user;
@@ -63,8 +67,22 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res, next) => {
   req.session.destroy((err) => {
     if (err) return next(err);
+    console.log('LOGGED OUT');
     res.json({ message: 'Successfully logged out!' });
   });
+});
+
+router.get('/verify', (req, res, next) => {
+  try {
+    console.log(req.session);
+    if (!req.session.currentUser) {
+      return res.json({ message: 'No user here' });
+    }
+    return res.json({ user: req.session.currentUser });
+  } catch (error) {
+    console.log(error);
+    return res.status(403).json({ error: 'There was an error' });
+  }
 });
 
 module.exports = router;

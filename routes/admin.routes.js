@@ -139,29 +139,37 @@ router.post('/user/section/add', async (req, res, next) => {
 router.delete('/user/section/remove', async (req, res, next) => {
   const { projectId, sectionId } = req.body;
 
+  console.log(req.body);
+
+  console.log(projectId, sectionId);
+
   try {
-    const projectToUpdate = await Project.findOne(projectId);
-    projectToUpdate.pull({ _id: sectionId });
+    const updatedProject = await Project.findByIdAndUpdate({ _id: projectId }, { $pull: { sections: sectionId } }, { new: true }).populate(
+      'sections'
+    );
 
     await Section.deleteOne({ _id: sectionId });
 
-    const updatedProject = await Project.find(projectId).populate('sections');
-
-    return res.json({ message: 'Successfully deleted user', updatedProject });
+    return res.json({ message: 'Successfully deleted section', updatedProject });
   } catch (error) {
     console.log('There was an error', error);
     return res.status(500).json({ error: 'There was an error deleting the section: ' + error.message });
   }
 });
-// POST route to rename section
+// POST route to update section
 router.post('/user/section/update', async (req, res, next) => {
-  const { projectId, sectionId, newTitle } = req.body; //add description here later
+  const { projectId, sectionId, title, description, prep, main, final } = req.body;
 
   try {
-    await Section.findByIdAndUpdate(sectionId, { title: newTitle });
-
-    const updatedProject = await Project.find(projectId).populate('sections');
-
+    await Section.findByIdAndUpdate(sectionId, {
+      title: title,
+      description: description,
+      prep: prep,
+      main: main,
+      final: final,
+    });
+    const updatedProject = await Project.find({ _id: projectId }).populate('sections');
+    console.log('Updated project here', updatedProject);
     return res.json({ message: 'Successfully updated section', updatedProject });
   } catch (error) {
     console.log('There was an error', error);

@@ -9,6 +9,15 @@ const sectionSchema = new Schema({
   description: {
     type: String,
   },
+  prep: {
+    type: String,
+  },
+  main: {
+    type: String,
+  },
+  final: {
+    type: String,
+  },
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 });
 
