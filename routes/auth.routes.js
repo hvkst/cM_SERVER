@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
 
     console.log('Everything fine... on login');
 
-    const user = { username: userFromDb.username, isAdmin: userFromDb.admin };
+    const user = { id: userFromDb._id, username: userFromDb.username, isAdmin: userFromDb.admin };
     req.session.currentUser = user;
     console.log(req.session.currentUser);
 

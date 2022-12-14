@@ -28,6 +28,9 @@ app.use('/admin', isLoggedIn, adminRoutes);
 const apiRoutes = require('./routes/api.routes');
 app.use('/api', apiRoutes);
 
+const commentRoutes = require('./routes/comment.routes');
+app.use('/comment', commentRoutes);
+
 require('./error-handling')(app);
 
 module.exports = app;

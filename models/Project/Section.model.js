@@ -1,3 +1,5 @@
+const Comment = require('./Comments/Comment.model');
+
 const { Schema, model } = require('mongoose');
 
 const sectionSchema = new Schema({

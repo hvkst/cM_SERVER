@@ -102,6 +102,10 @@ router.get('/user/:userId/', async (req, res, next) => {
         populate: {
           path: 'sections',
           model: 'Section',
+          populate: {
+            path: 'comments',
+            model: 'Comment',
+          },
         },
       },
     ]);
