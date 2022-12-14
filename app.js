@@ -31,6 +31,9 @@ app.use('/api', apiRoutes);
 const commentRoutes = require('./routes/comment.routes');
 app.use('/comment', commentRoutes);
 
+const uploadRoutes = require('./routes/upload.routes');
+app.use('/upload', uploadRoutes);
+
 require('./error-handling')(app);
 
 module.exports = app;

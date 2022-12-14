@@ -11,10 +11,13 @@ router.post('/new', async (req, res, next) => {
   console.log('req.body', req.body);
 
   try {
-    // Create a Comment
+    // Create a Comment // TODO: What Ids do you REALLY need?
+    const user = await User.findById(UserId);
+
     const newComment = new Comment({
       content: content,
-      author: UserId,
+      // username: username,
+      isAdmin: user.admin,
       section: sectionId,
       project: projectId,
     });

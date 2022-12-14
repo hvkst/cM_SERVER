@@ -6,6 +6,7 @@ const commentSchema = new Schema(
     project: { type: Schema.Types.ObjectId, ref: 'Project' },
     section: { type: Schema.Types.ObjectId, ref: 'Section' },
     content: String,
+    isAdmin: Boolean,
   },
   { timestamps: true }
 );
