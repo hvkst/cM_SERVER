@@ -27,7 +27,7 @@ module.exports = (app) => {
   app.use(logger('dev'));
 
   // To have access to `body` property in the request
-  app.use(express.json());
+  app.use(express.json({ limit: '50mb' }));
   app.use(expressSanitizer());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
