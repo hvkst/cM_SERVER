@@ -34,6 +34,9 @@ app.use('/comment', commentRoutes);
 const uploadRoutes = require('./routes/upload.routes');
 app.use('/upload', uploadRoutes);
 
+const contactRoutes = require('./routes/contact.routes');
+app.use('/contact', contactRoutes);
+
 require('./error-handling')(app);
 
 module.exports = app;
