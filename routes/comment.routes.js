@@ -16,7 +16,7 @@ router.post('/new', async (req, res, next) => {
 
     const newComment = new Comment({
       content: content,
-      // username: username,
+      username: user.username,
       isAdmin: user.admin,
       section: sectionId,
       project: projectId,
