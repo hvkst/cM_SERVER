@@ -52,6 +52,37 @@ router.post('/user/new', async (req, res, next) => {
   }
 });
 
+// POST route to user and basic project data
+router.post('/user/update', async (req, res, next) => {
+  const { username, project, dueDate, userId, projectId } = req.body;
+
+  try {
+    console.log('TO SERVER', req.body);
+    await Project.findByIdAndUpdate(projectId, { title: project, dueDate: dueDate }, { new: true });
+    const updatedUser = await User.findByIdAndUpdate({ _id: userId }, { username: username }, { new: true, password: 0 }).populate([
+      {
+        path: 'projects',
+        model: 'Project',
+        populate: {
+          path: 'sections',
+          model: 'Section',
+          populate: {
+            path: 'comments',
+            model: 'Comment',
+          },
+        },
+      },
+    ]);
+
+    console.log('updatedUser', updatedUser);
+
+    return res.json({ message: 'Successfully updated User', updatedUser });
+  } catch (error) {
+    console.log('There was an error', error);
+    return res.status(500).json({ error: 'There was an error updating the user: ' + error.message });
+  }
+});
+
 // DELETE route to remove user and the project inside and the sections inside
 router.delete('/user/remove', async (req, res, next) => {
   const { userId } = req.body;
