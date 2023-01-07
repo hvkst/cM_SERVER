@@ -203,7 +203,16 @@ router.post('/user/section/update', async (req, res, next) => {
       main: main,
       final: final,
     });
-    const updatedProject = await Project.find({ _id: projectId }).populate('sections');
+    const updatedProject = await Project.find({ _id: projectId }).populate([
+      {
+        path: 'sections',
+        model: 'Section',
+        populate: {
+          path: 'comments',
+          model: 'Comment',
+        },
+      },
+    ]);
     console.log('Updated project here', updatedProject);
     return res.json({ message: 'Successfully updated section', updatedProject });
   } catch (error) {
