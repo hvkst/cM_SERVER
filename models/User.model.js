@@ -13,6 +13,7 @@ const userSchema = new Schema({
     // select: false,
   },
   admin: { type: Boolean, default: 'false' },
+  showWelcomeMessage: { type: Boolean, default: 'true' },
   projects: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
 });
 

@@ -52,7 +52,7 @@ router.post('/user/new', async (req, res, next) => {
   }
 });
 
-// POST route to user and basic project data
+// POST route to update user and basic project data
 router.post('/user/update', async (req, res, next) => {
   const { username, project, dueDate, userId, projectId } = req.body;
 
