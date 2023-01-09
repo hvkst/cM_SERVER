@@ -1,6 +1,7 @@
+const { sendEmail } = require('../helpers');
+
 const router = require('express').Router();
 
-const nodemailer = require('nodemailer');
 // const env = process.env.NODE_ENV || 'development';
 // const config = require(path.join(__dirname, '/../config/config.json'))[env];
 
@@ -27,31 +28,23 @@ router.post('/sendform', (req, res, next) => {
     `,
   };
 
-  let transporter = nodemailer.createTransport({
-    host: process.env.NODEMAILER_HOST,
-    port: 587,
-    secure: false, // upgrade later with STARTTLS
-    auth: {
-      user: process.env.NODEMAILER_USER,
-      pass: process.env.NODEMAILER_PASS,
-    },
-  });
+  sendEmail(message);
 
-  transporter.verify(function (error, success) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Server is ready to take our messages');
-    }
-  });
+  // transporter.verify(function (error, success) {
+  //   if (error) {
+  //     console.log(error);
+  //   } else {
+  //     console.log('Server is ready to take our messages');
+  //   }
+  // });
 
-  transporter.sendMail(message, function (err, data) {
-    if (err) {
-      console.log('Error Occurs');
-    } else {
-      console.log('Email sent successfully');
-    }
-  });
+  // transporter.sendMail(message, function (err, data) {
+  //   if (err) {
+  //     console.log('Error Occurs');
+  //   } else {
+  //     console.log('Email sent successfully');
+  //   }
+  // });
 
   res.json('Contact form received');
 });

@@ -3,6 +3,7 @@ const User = require('../models/User.model');
 const Project = require('../models/Project/Project.model');
 const Section = require('../models/Project/Section.model');
 const Comment = require('../models/Project/Comments/Comment.model');
+const { sendEmail } = require('../helpers');
 
 // POST route to create new users
 router.post('/new', async (req, res, next) => {
@@ -11,15 +12,16 @@ router.post('/new', async (req, res, next) => {
   console.log('req.body', req.body);
 
   try {
-    // Create a Comment // TODO: What Ids do you REALLY need?
     const user = await User.findById(UserId);
+    const section = await Section.findById(sectionId);
+    const project = await Project.findById(projectId);
 
     const newComment = new Comment({
       content: content,
       username: user.username,
       isAdmin: user.admin,
       section: sectionId,
-      project: projectId,
+      // project: projectId,as
     });
     await newComment.save();
     // Get ProjectData
@@ -35,6 +37,26 @@ router.post('/new', async (req, res, next) => {
         },
       },
     ]);
+
+    // if comment is not send by admin, inform admin by mail about new comment
+    if (!user.admin) {
+      const message = {
+        from: 'ironhack@hvkst.com',
+        to: 'ironhack@hvkst.com',
+        subject: 'New Comment',
+        text: req.body.message,
+        html: `
+      <p>${user.username} commented on "${section.title}" in "${project.title}".</p>
+      ------------</br>
+      "${content}"</br>
+      ------------</br>
+      ${newComment.createdAt.toLocaleString('de-DE')}
+  </p>`,
+      };
+
+      sendEmail(message);
+    }
+
     return res.json({ message: 'Comment saved on server', currentProject });
   } catch (error) {
     console.log('There was an error', error);
