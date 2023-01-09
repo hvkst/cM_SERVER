@@ -38,7 +38,7 @@ router.post('/new', async (req, res, next) => {
       },
     ]);
 
-    // if comment is not send by admin, inform admin by mail about new comment
+    // if comment is send by user, inform admin
     if (!user.admin) {
       const message = {
         from: 'ironhack@hvkst.com',

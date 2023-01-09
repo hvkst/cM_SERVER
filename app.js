@@ -25,11 +25,17 @@ app.use('/auth', authRoutes);
 const adminRoutes = require('./routes/admin.routes');
 app.use('/admin', isLoggedIn, adminRoutes);
 
-const apiRoutes = require('./routes/api.routes');
-app.use('/api', apiRoutes);
+const projectRoutes = require('./routes/project.routes');
+app.use('/admin/user/project', projectRoutes);
+
+const sectionRoutes = require('./routes/section.routes');
+app.use('/admin/user/section', sectionRoutes);
 
 const commentRoutes = require('./routes/comment.routes');
 app.use('/comment', commentRoutes);
+
+const apiRoutes = require('./routes/api.routes');
+app.use('/api', apiRoutes);
 
 const uploadRoutes = require('./routes/upload.routes');
 app.use('/upload', uploadRoutes);
