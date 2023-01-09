@@ -12,7 +12,7 @@ router.get('/user', async (req, res, next) => {
     return res.json({ message: 'Got all users', allUsers });
   } catch (error) {
     console.log('There was an error', error);
-    return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
+    return res.status(500).json({ error: 'There was an error getting UserData: ' + error.message });
   }
 });
 

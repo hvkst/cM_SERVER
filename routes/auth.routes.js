@@ -8,31 +8,33 @@ const User = require('../models/User.model');
 
 const router = express.Router();
 
+// This is only possible by admin in Admin Backend
+
 // POST /auth/signup  - Creates a new user in the database
-router.post('/signup', async (req, res, next) => {
-  //isLoggedOut, ?
-  const { password, username } = req.body;
+// router.post('/signup', async (req, res, next) => {
+//   //isLoggedOut, ?
+//   const { password, username } = req.body;
 
-  try {
-    const newUser = new User({
-      username: username,
-      password: await genPassword(password),
-      admin: true,
-    });
+//   try {
+//     const newUser = new User({
+//       username: username,
+//       password: await genPassword(password),
+//       admin: true,
+//     });
 
-    await newUser.save().then((user) => {
-      console.log('user:', user);
-      req.session.currentUser = { name: user.username, isAdmin: user.admin };
-    });
+//     await newUser.save().then((user) => {
+//       console.log('user:', user);
+//       req.session.currentUser = { name: user.username, isAdmin: user.admin };
+//     });
 
-    console.log(req.session.currentUser);
+//     console.log(req.session.currentUser);
 
-    return res.json({ message: 'Successfully signed up' });
-  } catch (error) {
-    console.log('There was an error', error);
-    return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
-  }
-});
+//     return res.json({ message: 'Successfully signed up' });
+//   } catch (error) {
+//     console.log('There was an error', error);
+//     return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
+//   }
+// });
 
 router.post('/login', async (req, res) => {
   //  isLoggedOut, ?
@@ -60,7 +62,8 @@ router.post('/login', async (req, res) => {
     });
   } catch (error) {
     console.log('There was an error', error);
-    return res.status(500).json({ error: 'There was an error in the signup: ' + error.message });
+    return res.status(500).json({ error: 'There was an error during login. Please make sure username and password are correct.' });
+    // return res.status(500).json({ error: 'There was an error during login: ' + error.message });
   }
 });
 
