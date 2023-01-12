@@ -21,8 +21,8 @@ build:
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
-      # - name: Run Tests
-      #   run: npm test
+      - name: Run Tests
+        run: npm test
   deploy:
     runs-on: ubuntu-latest
     steps:
