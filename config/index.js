@@ -21,7 +21,8 @@ module.exports = (app) => {
   // Static File Declaration
   // app.use(express.static(path.join(__dirname, 'client/build')));
 
-  app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
+  app.use(cors({ origin: [CLIENT_ORIGIN] }));
+  // app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
 
   // In development environment the app logs
   app.use(logger('dev'));
