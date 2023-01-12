@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.2.0
-      - uses: actions/setup-node@v3
       - name: rsync deployments
         uses: burnett01/rsync-deployments@4.1
         with:
@@ -19,7 +18,3 @@ jobs:
           remote_host: ${{ secrets.UBERSPACE_HOST }}
           remote_user: ${{ secrets.UBERSPACE_USER }}
           remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
-          node-version: 16
-          cache: 'npm' # or 'yarn' | 'pnpm'
-      - run: npm ci
-      - run: npm start
