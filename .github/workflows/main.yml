@@ -3,14 +3,16 @@ on:
     branches:
       - main
 jobs:
-  createEnv:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "${{ secrets.ENV_FILE }}" > .env
+  # createEnv:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "${{ secrets.ENV_FILE }}" > .env
   deploy:
     needs: createEnv
     runs-on: ubuntu-latest
     steps:
+      # - name: Create .env file
+      - run: echo "${{ secrets.ENV_FILE }}" > .env
       - uses: actions/checkout@v3.2.0
       - name: rsync deployments
         uses: burnett01/rsync-deployments@4.1
