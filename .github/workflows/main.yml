@@ -1,5 +1,6 @@
 # /.github/workflows/main.yml
 # Warning: deletes all files on uberspace which are not in repo, use without --delete if unsure
+name: build & deploy
 on:
   push:
     branches:
