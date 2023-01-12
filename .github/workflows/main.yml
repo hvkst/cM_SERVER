@@ -5,33 +5,32 @@ on:
       - main
 jobs:
 build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - name: Cache Node Modules
-        id: cache-node-modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3.2.0
-      - name: rsync deployments
-        uses: burnett01/rsync-deployments@4.1
-        with:
-          switches: -avzr --delete
-          path: /
-          remote_path: /home/${{ secrets.UBERSPACE_USER }}/finalserver/
-          remote_host: ${{ secrets.UBERSPACE_HOST }}
-          remote_user: ${{ secrets.UBERSPACE_USER }}
-          remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
-
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Cache Node Modules
+      id: cache-node-modules
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: node-modules-${{ hashFiles('package-lock.json') }}
+    - name: Install Dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm install
+deploy:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3.2.0
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@4.1
+      with:
+        switches: -avzr --delete
+        path: /
+        remote_path: /home/${{ secrets.UBERSPACE_USER }}/finalserver/
+        remote_host: ${{ secrets.UBERSPACE_HOST }}
+        remote_user: ${{ secrets.UBERSPACE_USER }}
+        remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
