@@ -18,3 +18,6 @@ jobs:
           remote_host: ${{ secrets.UBERSPACE_HOST }}
           remote_user: ${{ secrets.UBERSPACE_USER }}
           remote_key: ${{ secrets.DEPLOY_KEY_PRIVATE }}
+  name: 'Create env file'
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
