@@ -9,6 +9,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
+const corsOptions = require('./corsOptions');
 
 // const path = require('path');
 
@@ -21,7 +22,8 @@ module.exports = (app) => {
   // Static File Declaration
   // app.use(express.static(path.join(__dirname, 'client/build')));
 
-  app.use(cors({ origin: [CLIENT_ORIGIN] }));
+  app.use(cors(corsOptions));
+  // app.use(cors({ origin: [CLIENT_ORIGIN] }));
   // app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
 
   // In development environment the app logs
