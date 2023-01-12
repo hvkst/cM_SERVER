@@ -6,7 +6,7 @@ jobs:
   createEnv:
     runs-on: ubuntu-latest
     steps:
-      run: echo "${{ secrets.ENV_FILE }}" > .env
+      - run: echo "${{ secrets.ENV_FILE }}" > .env
   deploy:
     needs: createEnv
     runs-on: ubuntu-latest
