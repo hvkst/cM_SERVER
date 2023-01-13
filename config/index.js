@@ -8,6 +8,10 @@ const logger = require('morgan');
 
 const cookieParser = require('cookie-parser');
 
+// ℹ️ Serves a custom favicon on each request
+// https://www.npmjs.com/package/serve-favicon
+const favicon = require('serve-favicon');
+
 const cors = require('cors');
 const corsOptions = require('./corsOptions');
 const path = require('path');
