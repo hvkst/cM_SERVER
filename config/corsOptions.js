@@ -1,16 +1,19 @@
-const allowedOrigins = require('./allowedOrigins');
 const CLIENT_ORIGIN = process.env.ORIGIN;
 
+// const corsOptions = {
+//   origin: 'https://finalproject.hvkst.com',
+//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
+const whitelist = ['https://finalproject.hvkst.com' /** other domains if any */];
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (CLIENT_ORIGIN.indexOf(origin) !== -1 || !origin) {
+  credentials: true,
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true,
-  optionsSuccessStatus: 200,
 };
 
 module.exports = corsOptions;

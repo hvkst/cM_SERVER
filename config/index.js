@@ -13,7 +13,7 @@ const corsOptions = require('./corsOptions');
 
 // const path = require('path');
 
-const CLIENT_ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
+// const CLIENT_ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
 
 // Middleware configuration
 module.exports = (app) => {
