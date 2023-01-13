@@ -38,6 +38,11 @@ module.exports = (app) => {
   app.use(expressSanitizer());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
+
+  // Normalizes the path to the views folder
+  app.set('views', path.join(__dirname, '..', 'views'));
+  // Handles access to the favicon
+  app.use(favicon(path.join(__dirname, '..', 'public', 'images', 'favicon.ico')));
   app.use((req, res, next) => {
     // console.log(req.session);
     // console.log(req.user);
