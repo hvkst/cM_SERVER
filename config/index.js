@@ -21,24 +21,23 @@ const path = require('path');
 
 // Middleware configuration
 module.exports = (app) => {
+  app.set('trust proxy', 1);
   // Static File Declaration
-  // app.use(express.static(path.join(__dirname, 'client/build')));
   app.use('/', express.static(path.join(__dirname, 'public')));
   // Normalizes the path to the views folder
   app.set('views', path.join(__dirname, '..', 'views'));
-  app.set('trust proxy', 1);
 
   // app.use(cors({ origin: [CLIENT_ORIGIN] }));
   // app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
 
   // In development environment the app logs
   app.use(logger('dev'));
-  // app.use(cors(corsOptions));
-  app.use(
-    cors({
-      origin: [FRONTEND_URL],
-    })
-  );
+  app.use(cors(corsOptions));
+  // app.use(
+  //   cors({
+  //     origin: [FRONTEND_URL],
+  //   })
+  // );
 
   // To have access to `body` property in the request
   app.use(express.json({ limit: '50mb' }));
