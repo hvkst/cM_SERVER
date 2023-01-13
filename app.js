@@ -19,6 +19,9 @@ require('./config')(app);
 
 // 👇 Start handling routes here
 
+const indexRoutes = require('./routes/index.routes');
+app.get('/', indexRoutes);
+
 const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
 
@@ -42,9 +45,6 @@ app.use('/upload', uploadRoutes);
 
 const contactRoutes = require('./routes/contact.routes');
 app.use('/contact', contactRoutes);
-
-// const indexRoutes = require('./routes/index.routes');
-// app.get('/', indexRoutes);
 
 // app.all('*', (req, res) => {
 //   res.status(404);
