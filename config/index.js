@@ -10,8 +10,7 @@ const cookieParser = require('cookie-parser');
 
 const cors = require('cors');
 const corsOptions = require('./corsOptions');
-
-// const path = require('path');
+const path = require('path');
 
 // const CLIENT_ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
 
@@ -21,13 +20,14 @@ module.exports = (app) => {
 
   // Static File Declaration
   // app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use('/', express.static(path.join(__dirname, 'public')));
 
-  app.use(cors(corsOptions));
   // app.use(cors({ origin: [CLIENT_ORIGIN] }));
   // app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
 
   // In development environment the app logs
   app.use(logger('dev'));
+  app.use(cors(corsOptions));
 
   // To have access to `body` property in the request
   app.use(express.json({ limit: '50mb' }));
