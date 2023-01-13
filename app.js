@@ -4,6 +4,8 @@ require('dotenv').config();
 
 require('./db');
 
+const path = require('path');
+
 const express = require('express');
 
 const { isLoggedIn } = require('./middleware/route-guard.js');

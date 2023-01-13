@@ -1,7 +1,8 @@
 const router = require('express').Router();
+const path = require('path');
 
 router.get('/', (req, res, next) => {
-  res.json('All good in here');
+  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 });
 
 module.exports = router;
