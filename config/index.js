@@ -14,6 +14,7 @@ const favicon = require('serve-favicon');
 
 const cors = require('cors');
 const corsOptions = require('./corsOptions');
+const FRONTEND_URL = process.env.ORIGIN || 'http://localhost:3000';
 const path = require('path');
 
 // const CLIENT_ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
@@ -31,7 +32,12 @@ module.exports = (app) => {
 
   // In development environment the app logs
   app.use(logger('dev'));
-  app.use(cors(corsOptions));
+  // app.use(cors(corsOptions));
+  app.use(
+    cors({
+      origin: [FRONTEND_URL],
+    })
+  );
 
   // To have access to `body` property in the request
   app.use(express.json({ limit: '50mb' }));
