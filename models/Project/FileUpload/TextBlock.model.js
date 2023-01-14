@@ -1,3 +1,5 @@
+// Not yet in use
+
 const { Schema, model } = require('mongoose');
 
 const textBlockSchema = new Schema(
@@ -9,6 +11,6 @@ const textBlockSchema = new Schema(
   { timestamps: true }
 );
 
-const TextBlock = model('TextBlock', textBlock);
+const TextBlock = model('TextBlock', textBlockSchema);
 
 module.exports = TextBlock;

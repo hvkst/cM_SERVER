@@ -10,7 +10,6 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, 'Password is required.'],
-    // select: false,
   },
   admin: { type: Boolean, default: 'false' },
   showWelcomeMessage: { type: Boolean, default: 'true' },

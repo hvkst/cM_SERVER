@@ -1,3 +1,5 @@
+// Not yet in use
+
 const { Schema, model } = require('mongoose');
 
 const imageSchema = new Schema(
@@ -13,9 +15,7 @@ const imageSchema = new Schema(
       type: String,
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 module.exports = model('Image', imageSchema);

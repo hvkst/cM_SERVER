@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose');
-const Section = require('./Section.model');
 
 const projectSchema = new Schema({
   // user: { type: Schema.Types.ObjectId, ref: 'User' },
