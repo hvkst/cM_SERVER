@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 
 const MONGO_URI = process.env.MONGODB_URI; // || 'mongodb://127.0.0.1:27017/custoMe_server';
+// const MONGO_URI = 'mongodb://127.0.0.1:27017/custoMe_server';
 
 const connection = mongoose
   .connect(MONGO_URI)

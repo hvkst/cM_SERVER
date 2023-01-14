@@ -13,11 +13,10 @@ const cookieParser = require('cookie-parser');
 const favicon = require('serve-favicon');
 
 const cors = require('cors');
-const corsOptions = require('./corsOptions');
 const FRONTEND_URL = process.env.ORIGIN || 'http://localhost:3000';
 const path = require('path');
 
-// const CLIENT_ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
+const CLIENT_ORIGIN = process.env.ORIGIN || 'http://localhost:3000';
 
 // Middleware configuration
 module.exports = (app) => {
@@ -27,26 +26,17 @@ module.exports = (app) => {
   // Normalizes the path to the views folder
   app.set('views', path.join(__dirname, '..', 'views'));
 
-  // app.use(cors({ origin: [CLIENT_ORIGIN] }));
-  // app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
-
   // In development environment the app logs
   app.use(logger('dev'));
 
-  // app.use(cors(corsOptions));
-  // app.use(
-  //   cors({
-  //     origin: [FRONTEND_URL],
-  //   })
-  // );
-
+  // app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
   app.use(
     cors({
       origin: 'https://finalproject.hvkst.com',
       credentials: true,
     })
   );
-
+  app.options('*', cors());
   // To have access to `body` property in the request
   app.use(express.json({ limit: '50mb' }));
   app.use(expressSanitizer());
