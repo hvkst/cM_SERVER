@@ -2,9 +2,6 @@ const { sendEmail } = require('../helpers');
 
 const router = require('express').Router();
 
-// const env = process.env.NODE_ENV || 'development';
-// const config = require(path.join(__dirname, '/../config/config.json'))[env];
-
 router.post('/sendform', (req, res, next) => {
   console.log(req.body);
   const message = {
@@ -29,23 +26,6 @@ router.post('/sendform', (req, res, next) => {
   };
 
   sendEmail(message);
-
-  // transporter.verify(function (error, success) {
-  //   if (error) {
-  //     console.log(error);
-  //   } else {
-  //     console.log('Server is ready to take our messages');
-  //   }
-  // });
-
-  // transporter.sendMail(message, function (err, data) {
-  //   if (err) {
-  //     console.log('Error Occurs');
-  //   } else {
-  //     console.log('Email sent successfully');
-  //   }
-  // });
-
   res.json('Contact form received');
 });
 
