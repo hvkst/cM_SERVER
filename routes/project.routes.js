@@ -1,9 +1,10 @@
 const router = require('express').Router();
-const User = require('../models/User.model');
-const Project = require('../models/Project/Project.model');
-const Section = require('../models/Project/Section.model');
+// const User = require('../models/User.model');
+// const Project = require('../models/Project/Project.model');
+// const Section = require('../models/Project/Section.model');
 
 // PROJECT ROUTES ###############################################
+// Will be used, when user get more than one project ############
 
 // POST route to rename project
 // router.post('/update', async (req, res, next) => {
@@ -18,8 +19,6 @@ const Section = require('../models/Project/Section.model');
 //     return res.status(500).json({ error: 'There was an error updating the section: ' + error.message });
 //   }
 // });
-
-// Not yet in use...
 
 // DELETE route to remove project
 // router.delete('/remove', async (req, res, next) => {

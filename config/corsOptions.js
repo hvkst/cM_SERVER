@@ -1,4 +1,4 @@
-const CLIENT_ORIGIN = process.env.ORIGIN;
+// const CLIENT_ORIGIN = process.env.ORIGIN;
 
 const whitelist = ['https://finalproject.hvkst.com', 'http://localhost:3000'];
 const corsOptions = {

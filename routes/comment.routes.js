@@ -3,7 +3,7 @@ const User = require('../models/User.model');
 const Project = require('../models/Project/Project.model');
 const Section = require('../models/Project/Section.model');
 const Comment = require('../models/Project/Comments/Comment.model');
-const { sendEmail } = require('../helpers');
+const { sendEmail } = require('../lib/nodeMailerUtils');
 
 // POST route to create new users
 router.post('/new', async (req, res, next) => {

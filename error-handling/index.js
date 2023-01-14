@@ -1,4 +1,5 @@
 // Basic setup copied from ironlauncher
+// Something is fishy here ;D
 
 module.exports = (app) => {
   app.use((req, res, next) => {

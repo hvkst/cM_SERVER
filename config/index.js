@@ -8,12 +8,9 @@ const logger = require('morgan');
 
 const cookieParser = require('cookie-parser');
 
-// ℹ️ Serves a custom favicon on each request
-// https://www.npmjs.com/package/serve-favicon
 const favicon = require('serve-favicon');
 
 const cors = require('cors');
-const FRONTEND_URL = process.env.ORIGIN || 'http://localhost:3000';
 const path = require('path');
 const corsOptions = require('./corsOptions');
 
@@ -40,6 +37,7 @@ module.exports = (app) => {
 
   // Handles access to the favicon
   app.use(favicon(path.join(__dirname, '..', 'public', 'images', 'favicon.ico')));
+
   app.use((req, res, next) => {
     // console.log(req.session);
     // console.log(req.user);

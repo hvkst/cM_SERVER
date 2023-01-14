@@ -1,4 +1,4 @@
-const { sendEmail } = require('../helpers');
+const { sendEmail } = require('../lib/nodeMailerUtils');
 
 const router = require('express').Router();
 

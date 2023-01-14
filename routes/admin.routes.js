@@ -35,7 +35,7 @@ router.post('/user/new', async (req, res, next) => {
       password: await genPassword(password),
     });
     newUser.projects.push(savedProject);
-    // Add user ref to project
+    // Maybe add user ref to project
     // project.user = user._id;
 
     // Save that user
@@ -90,14 +90,25 @@ router.delete('/user/remove', async (req, res, next) => {
   try {
     const userToDelete = await User.find({ _id: userId }).populate('projects');
 
+    // Not ideal, but it get´s the job done,
+    // but with more models related to Users, I need a better solution
     const sectionsToDelete = [];
     const projectsToDelete = [];
+    const commentsToDelete = [];
     userToDelete[0].projects.forEach((project) => {
       projectsToDelete.push(project._id);
-
       project.sections.forEach((section) => {
         sectionsToDelete.push(section._id);
+        section.forEach((comment) => {
+          commentsToDelete.push(comment._id);
+        });
       });
+    });
+
+    await Comment.deleteMany({
+      _id: {
+        $in: commentsToDelete,
+      },
     });
 
     await Section.deleteMany({
