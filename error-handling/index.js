@@ -5,11 +5,6 @@ module.exports = (app) => {
     res.status(404).json({ message: 'This route does not exist' });
   });
 
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://finalproject.hvkst.com');
-    next();
-  });
-
   app.use((err, req, res, next) => {
     console.error('ERROR', req.method, req.path, err);
 

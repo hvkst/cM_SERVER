@@ -29,14 +29,9 @@ module.exports = (app) => {
 
   // In development environment the app logs
   app.use(logger('dev'));
-  // app.use(cors(corsOptions));
+  app.use(cors(corsOptions));
   // app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
-  // app.use(
-  //   cors({
-  //     origin: 'https://finalproject.hvkst.com',
-  //     credentials: true,
-  //   })
-  // );
+
   // To have access to `body` property in the request
   app.use(express.json({ limit: '50mb' }));
   app.use(expressSanitizer());
