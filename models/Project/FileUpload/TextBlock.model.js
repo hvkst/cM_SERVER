@@ -2,7 +2,7 @@
 
 const { Schema, model } = require('mongoose');
 
-const textBlockSchema = new Schema(
+const textContentSchema = new Schema(
   {
     section: { type: Schema.Types.ObjectId, ref: 'Section' },
     title: String,
@@ -11,6 +11,6 @@ const textBlockSchema = new Schema(
   { timestamps: true }
 );
 
-const TextBlock = model('TextBlock', textBlockSchema);
+const TextContent = model('TextContent', textContentSchema);
 
-module.exports = TextBlock;
+module.exports = TextContent;
