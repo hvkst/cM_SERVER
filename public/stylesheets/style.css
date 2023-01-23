@@ -19,3 +19,8 @@ body {
   place-content: center;
   padding: 1rem;
 }
+
+.impressum-link {
+  padding: 0;
+  background-color: red;
+}
