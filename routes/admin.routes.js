@@ -3,6 +3,7 @@ const genPassword = require('../lib/passwordUtils').genPassword;
 const User = require('../models/User.model');
 const Project = require('../models/Project/Project.model');
 const Section = require('../models/Project/Section.model');
+const Comment = require('../models/Project/Comments/Comment.model');
 
 // GET route to get all users
 router.get('/user', async (req, res, next) => {
