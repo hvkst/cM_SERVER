@@ -93,6 +93,7 @@ router.delete('/user/remove', async (req, res, next) => {
 
     // Not ideal, but it get´s the job done,
     // but with more models related to Users, I need a better solution
+    // This broke... section.comments.forEach not working
     const sectionsToDelete = [];
     const projectsToDelete = [];
     const commentsToDelete = [];
@@ -100,7 +101,7 @@ router.delete('/user/remove', async (req, res, next) => {
       projectsToDelete.push(project._id);
       project.sections.forEach((section) => {
         sectionsToDelete.push(section._id);
-        section.forEach((comment) => {
+        section.comments.forEach((comment) => {
           commentsToDelete.push(comment._id);
         });
       });
