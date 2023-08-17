@@ -1,6 +1,6 @@
 // const CLIENT_ORIGIN = process.env.ORIGIN;
 
-const whitelist = ['https://finalproject.hvkst.com', 'http://localhost:3000', 'c-m-client-git-main-hvkst.vercel.app'];
+const whitelist = ['https://finalproject.hvkst.com', 'http://localhost:3000', 'https://c-m-client-git-main-hvkst.vercel.app'];
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
