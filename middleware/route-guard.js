@@ -9,7 +9,7 @@ const isLoggedIn = (req, res, next) => {
   next();
 };
 
-// checks if user is looged out
+// checks if user is logged out
 const isLoggedOut = (req, res, next) => {
   if (req.session.currentUser) {
     console.log('Is logged OUT!');

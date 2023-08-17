@@ -26,7 +26,7 @@ app.use('/auth', authRoutes);
 
 const adminRoutes = require('./routes/admin.routes');
 app.use('/admin', adminRoutes);
-// app.use('/admin', isLoggedIn, adminRoutes);
+// app.use('/admin', isLoggedIn, adminRoutes); // 👈Here is something broken, why is the route guard not working anymore? Check req.session.currentUser
 
 const projectRoutes = require('./routes/project.routes');
 app.use('/admin/user/project', projectRoutes);
