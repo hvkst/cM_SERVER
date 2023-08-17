@@ -25,7 +25,8 @@ const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
 
 const adminRoutes = require('./routes/admin.routes');
-app.use('/admin', isLoggedIn, adminRoutes);
+app.use('/admin', adminRoutes);
+// app.use('/admin', isLoggedIn, adminRoutes);
 
 const projectRoutes = require('./routes/project.routes');
 app.use('/admin/user/project', projectRoutes);

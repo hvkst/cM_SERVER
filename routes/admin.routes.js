@@ -7,7 +7,7 @@ const Comment = require('../models/Project/Comments/Comment.model');
 
 // GET route to get all users
 router.get('/user', async (req, res, next) => {
-  console.log("Something incoming from the client's request", req.body);
+  // console.log("Something incoming from the client's request", req.body);
   try {
     const allUsers = await User.find({ admin: false }, { password: 0 }).populate('projects');
 
